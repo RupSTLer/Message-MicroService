@@ -65,7 +65,7 @@ public class MessageCRUDTest {
 		
 		List<Message> msg = messageRepo.findAll();
 		
-		Assertions.assertThat(msg.size()).isEqualTo(4);
+		Assertions.assertThat(msg.size()).isEqualTo(7);
 	}
 	
 //	@Test

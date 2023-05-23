@@ -20,7 +20,7 @@ public class MessageService {
 	
 	public Message addMessage(Message msg) {
 		LocalDateTime datetime = LocalDateTime.now();  
-	    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");  
+	    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");  
 	    String timestamp = datetime.format(format);  
 		msg.setTime(timestamp);
 		return msgRepo.save(msg);
