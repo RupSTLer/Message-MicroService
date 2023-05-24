@@ -30,6 +30,11 @@ public class MessageService {
 	{
 		return msgRepo.findAll();
 	}
+	
+	public Message updateMessage(Message msg)
+	{
+		return msgRepo.saveAndFlush(msg);
+	}
 
 //	public List<Message> getMessages(Message msg) {
 //		// TODO Auto-generated method stub

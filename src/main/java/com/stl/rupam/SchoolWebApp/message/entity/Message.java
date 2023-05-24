@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,12 +33,10 @@ public class Message {
 	private Long receiverId;
 	
 	@Column(nullable=false)
-	@Max(value = 100, message = "character limit is 100")
+	@Size(max = 100, message = "character limit is 100")
 	private String message;
     
-//	@Column(nullable = false)
 	private String time;
 	
-//    private LocalDateTime creationDateTime;
 	
 }
