@@ -6,16 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -26,11 +23,10 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-//	@Column(nullable = false)
-//	private Long senderId;
+	private String senderId;
 	
 	@Column(nullable=false)
-	private Long receiverId;
+	private String receiverId;
 	
 	@Column(nullable=false)
 	@Size(max = 100, message = "character limit is 100")

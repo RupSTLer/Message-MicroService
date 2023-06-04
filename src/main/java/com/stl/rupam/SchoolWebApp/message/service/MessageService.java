@@ -19,14 +19,21 @@ public class MessageService {
 	private MessageRepo msgRepo;
 	
 	public Message addMessage(Message msg) {
+		
 		LocalDateTime datetime = LocalDateTime.now();  
 	    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");  
 	    String timestamp = datetime.format(format);  
-		msg.setTime(timestamp);
-		return msgRepo.save(msg);
-	}
+		msg.setTime(timestamp);  
+		
+//		Message m = new Message();
+		
+//		msg.setSenderId(m.getSenderId());
+		
+		return msgRepo.save(msg);  
+		
+	}   
 	
-	public List<Message> getAllMessages()
+	public List<Message> getAllMessages() 
 	{
 		return msgRepo.findAll();
 	}
@@ -35,18 +42,26 @@ public class MessageService {
 	{
 		return msgRepo.saveAndFlush(msg);
 	}
+	
+	public List<Message> getMsgListBySenderId(String senderId)
+	{
+		return msgRepo.findBySenderId(senderId);
+	}
+	
+	public List<Message> getMsgListByReceiverId(String receiverId)
+	{
+		return msgRepo.findByReceiverId(receiverId);
+	}
 
-//	public List<Message> getMessages(Message msg) {
+//	public List<Message> getMsgsByTime() {
 //		// TODO Auto-generated method stub
 //		List<Message> messages = new ArrayList<>();
-//		messages.addAll(repo.findBySenderIdAndReceiverId(msg.getSenderId(), msg.getReceiverId()));
-//		messages.addAll(repo.findBySenderIdAndReceiverId(msg.getReceiverId(), msg.getSenderId()));
+//		messages.addAll(msgRepo.findBySenderIdAndReceiverId(msg.getSenderId(), msg.getReceiverId()));
+//		messages.addAll(msgRepo.findBySenderIdAndReceiverId(msg.getReceiverId(), msg.getSenderId()));
 //		messages.sort(new Comparator<Message>() {
 //
 //			@Override
 //			public int compare(Message o1, Message o2) {
-//				// TODO Auto-generated method stub
-////				return o1.getCreationDateTime().compareTo(o2.getCreationDateTime());
 //				return o1.getTime().compareTo(o2.getTime());
 //			}	
 //		});

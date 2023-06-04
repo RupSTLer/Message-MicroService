@@ -8,6 +8,9 @@ import com.stl.rupam.SchoolWebApp.message.entity.Message;
 
 public interface MessageRepo extends JpaRepository<Message, Long>{
 
-//	public List<Message> findBySenderIdAndReceiverId(Long senderId,Long receriverId);
-	public List<Message> findByReceiverId(Long receriverId);
+	public List<Message> findBySenderId(String senderId);
+	
+	public List<Message> findByReceiverId(String receiverId);
+	
+	public List<Message> findBySenderIdAndReceiverId(String senderId, String receiverId);
 }
