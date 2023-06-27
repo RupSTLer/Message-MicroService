@@ -2,7 +2,7 @@ package com.stl.rupam.SchoolWebApp.message.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -25,27 +25,71 @@ public class MessageService {
 	    String timestamp = datetime.format(format);  
 		msg.setTime(timestamp);  
 		
-//		Message m = new Message();
-		
-//		msg.setSenderId(m.getSenderId());
-		
 		return msgRepo.save(msg);  
 		
 	}   
-	
-	public List<Message> getAllMessages() 
-	{
-		return msgRepo.findAll();
-	}
-	
+		
 	public Message updateMessage(Message msg)
 	{
+		LocalDateTime datetime = LocalDateTime.now();  
+	    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");  
+	    String timestamp = datetime.format(format);  
+		msg.setTime(timestamp);  
+		
+//		String s = validateMessage(msg);
+//		
+//		if (s == null) {
+//			msgRepo.save(fee);
+//			return "Fees paid successfully..";
+//		} else {
+//			return s;
+//		}
+		
 		return msgRepo.saveAndFlush(msg);
+	}
+	
+	public String validateMessage(Message msg)
+	{
+		try {
+			if(msg.getMessage().length() > 100)
+			{
+				throw new IllegalArgumentException("Maximum character exceeded");
+			}
+		}
+		catch(Exception ex)
+		{
+			return ex.getMessage();
+		}
+		
+		
+		return null;
 	}
 	
 	public List<Message> getMsgListBySenderId(String senderId)
 	{
-		return msgRepo.findBySenderId(senderId);
+		List<Message> msgs = msgRepo.findBySenderId(senderId);
+		sortMsgsByTime(msgs);
+		return msgs;
+	}
+	
+	public List<Message> getAllMessages() 
+	{
+		List<Message> msgs = msgRepo.findAll();
+		sortMsgsByTime(msgs);
+		return msgs;
+	}
+	
+	public void sortMsgsByTime(List<Message> msgs)
+	{
+		Collections.sort(msgs, new Comparator<Message>() {
+
+			@Override
+			public int compare(Message msg1, Message msg2) {
+				String time1 = msg1.getTime();
+				String time2 = msg2.getTime();				
+				return time2.compareTo(time1);
+			}
+		});
 	}
 	
 	public List<Message> getMsgListByReceiverId(String receiverId)
@@ -53,19 +97,5 @@ public class MessageService {
 		return msgRepo.findByReceiverId(receiverId);
 	}
 
-//	public List<Message> getMsgsByTime() {
-//		// TODO Auto-generated method stub
-//		List<Message> messages = new ArrayList<>();
-//		messages.addAll(msgRepo.findBySenderIdAndReceiverId(msg.getSenderId(), msg.getReceiverId()));
-//		messages.addAll(msgRepo.findBySenderIdAndReceiverId(msg.getReceiverId(), msg.getSenderId()));
-//		messages.sort(new Comparator<Message>() {
-//
-//			@Override
-//			public int compare(Message o1, Message o2) {
-//				return o1.getTime().compareTo(o2.getTime());
-//			}	
-//		});
-//		return messages;
-//	}
 }
 

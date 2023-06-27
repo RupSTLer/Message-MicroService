@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,12 @@ public class MessageController {
 		return msgService.addMessage(msg);
 	}
 	
+	@PutMapping("/updateMsg")
+	public Message updateMessage(@Valid @RequestBody Message msg)
+	{	
+		return msgService.updateMessage(msg);
+	}
+	
 	@GetMapping("/getAllMsgs")
 	public List<Message> getMessages()
 	{	
@@ -48,11 +55,5 @@ public class MessageController {
 		return msgService.getMsgListByReceiverId(receiverId);
 	}
 	
-//	@GetMapping("/getMsgsByTime")
-//	public List<Message> getMsgsByTime()
-//	{	
-//		return msgService.getMsgsByTime();
-//	}
-//	
 	
 }
